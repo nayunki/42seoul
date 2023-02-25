@@ -6,7 +6,7 @@
 /*   By: naki <naki@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 09:35:33 by naki              #+#    #+#             */
-/*   Updated: 2023/02/22 15:44:31 by naki             ###   ########.fr       */
+/*   Updated: 2023/02/24 20:24:15 by naki             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,50 +43,50 @@ void	sort_three(t_stack *a, t_stack *b)
 		command(a, b, "sa", 1);
 }
 
-int	*bubble(int *arr, int len)
+void	bubble(t_stack *a)
 {
 	int	i;
 	int	j;
 	int	tmp;
 
 	i = 0;
-	while (i < len - 1)
+	while (i < a->len - 1)
 	{
 		j = 0;
-		while (j < len - 1)
+		while (j < a->len - 1)
 		{
-			if (arr[j] > arr[j + 1])
+			if (a->dup[j] > a->dup[j + 1])
 			{
-				tmp = arr[j];
-				arr[j] = arr[j + 1];
-				arr[j + 1] = tmp;
+				tmp = a->dup[j];
+				a->dup[j] = a->dup[j + 1];
+				a->dup[j + 1] = tmp;
 			}
 			j++;
 		}
 		i++;
 	}
-	return (arr_duplicate(arr, len));
+	return ;
 }
 
-int	*put_intarr(char **arr)
+int	is_sorted(t_stack *a)
 {
-	int				*arr_nbr;
-	int				i;
-	long long		num;
+	t_node	*tmp;
+	int		i;
 
 	i = 0;
-	arr_nbr = ft_calloc(arrlen(arr), sizeof(int));
-	if (!arr_nbr)
-		error();
-	while (arr[i])
+	tmp = a->head;
+	bubble(a);
+	a->min = a->dup[0];
+	while (i < a->len)
 	{
-		num = ft_atoll(arr[i]);
-		if (INT_MAX < num || num < INT_MIN)
-			error();
-		arr_nbr[i] = num;
+		if (a->dup[i] != tmp->nbr)
+			break ;
 		i++;
+		tmp = tmp->next;
 	}
-	return (arr_nbr);
+	if (i == a->len)
+		return (1);
+	return (0);
 }
 
 void	push_all(t_stack *a, t_stack *b)

@@ -6,7 +6,7 @@
 /*   By: naki <naki@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 23:50:58 by naki              #+#    #+#             */
-/*   Updated: 2023/02/22 16:30:30 by naki             ###   ########.fr       */
+/*   Updated: 2023/02/24 04:30:35 by naki             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,8 @@ void	push(t_stack *a, t_stack *b)
 {
 	t_node	*tmp;
 
-	if (b->len == 0)
-		return ;
-	tmp = b->head;
-	if (b->len != 1)
-		b->head = b->head->next;
-	if (a->len == 0)
-	{
-		tmp->next = NULL;
-		a->tail = tmp;
-	}
-	else
-		tmp->next = a->head;
-	a->head = tmp;
-	a->len++;
-	b->len--;
-	if (b->len == 0)
-	{
-		b->head = NULL;
-		b->tail = NULL;
-	}
+	tmp = pop_head(b, b->head);
+	push_head(a, a->head, tmp);
 }
 
 void	swap(t_stack *t)
@@ -53,28 +35,16 @@ void	rotate(t_stack *t)
 {
 	t_node	*tmp;
 
-	if (t->len <= 1)
-		return ;
-	tmp = t->head;
-	t->head = t->head->next;
-	t->tail->next = tmp;
-	t->tail = tmp;
-	tmp->next = NULL;
+	tmp = pop_head(t, t->head);
+	push_tail(t, t->tail, tmp);
 }
 
 void	rrotate(t_stack *t)
 {
 	t_node	*tmp;
-	t_node	*last;
 
-	if (t->len <= 1)
-		return ;
-	tmp = t->head;
-	t->head = t->tail;
-	t->head->next = tmp->next;
-	last = ft_lsttail(t);
-	last->next = NULL;
-	t->tail = last;
+	tmp = pop_tail(t, t->tail);
+	push_head(t, t->head, tmp);
 }
 
 void	command(t_stack *a, t_stack *b, char *command, int print)

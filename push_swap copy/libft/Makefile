@@ -5,42 +5,45 @@
 #                                                     +:+ +:+         +:+      #
 #    By: naki <naki@student.42seoul.kr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/02/16 18:03:58 by naki              #+#    #+#              #
-#    Updated: 2023/02/22 15:35:15 by naki             ###   ########.fr        #
+#    Created: 2022/07/24 06:16:56 by naki              #+#    #+#              #
+#    Updated: 2023/02/25 16:24:14 by naki             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = push_swap
+CFLAGS = -Wall -Wextra -Werror
+
+ARFLAGS = -rcs
+
+NAME = libft.a
 
 SRCS = \
-	greedy.c \
-	parsing.c \
-	commands.c \
-	push_swap.c \
-	preprocess.c \
-	greedy_utils.c \
-	push_swap_utils.c \
+	ft_isdigit.c \
+	ft_strlen.c \
+	ft_bzero.c \
+	ft_strncmp.c \
+	ft_atoll.c \
+	ft_calloc.c \
+	ft_strjoin.c \
+	ft_split.c \
+	ft_lstnew.c \
+	ft_lstclear.c \
+	ft_memcpy.c \
+	ft_strchr.c \
 
 OBJS = $(SRCS:.c=.o)
 
-CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
-# CFLAGS = -Wall -Wextra -Werror -g3
+all : $(NAME)
+
+$(NAME) : $(OBJS)
+	$(AR) $(ARFLAGS) $@ $^
 
 %.o : %.c
 	$(CC) $(CFLAGS) -c $^ -o $@
 
-$(NAME) : $(OBJS)
-	@make -C ./libft all
-	$(CC) $(CFLAGS) -o $@ $^ -L ./libft -lft
-
-all : $(NAME)
-
 clean :
-	@make -C ./libft clean
 	$(RM) $(OBJS)
 
 fclean : clean
-	@make -C ./libft clean
 	$(RM) $(NAME)
 
 re :

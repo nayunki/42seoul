@@ -6,7 +6,7 @@
 /*   By: naki <naki@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 18:58:16 by naki              #+#    #+#             */
-/*   Updated: 2023/02/22 14:42:06 by naki             ###   ########.fr       */
+/*   Updated: 2023/02/25 16:26:12 by naki             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,13 @@ char	*join_all(char **av)
 		error();
 	while (av[i])
 	{
-		all = ft_strjoin(all, " ");
-		all = ft_strjoin(all, av[i]);
+		if (av[i][0] == ' ')
+		{
+			free(all);
+			return (NULL);
+		}
+		all = ft_strjoin(all, " ", 1);
+		all = ft_strjoin(all, av[i], ft_strlen(av[i]));
 		i++;
 	}
 	return (all);
@@ -72,12 +77,16 @@ void	set_node(int *arr, int len, t_stack *a)
 	int		i;
 
 	tmp = ft_lstnew(arr[0]);
+	if (!tmp)
+		error();
 	a->head = tmp;
 	a->tail = tmp;
 	i = 1;
 	while (i < len)
 	{
 		tmp = ft_lstnew(arr[i]);
+		if (!tmp)
+			error();
 		a->tail->next = tmp;
 		a->tail = tmp;
 		i++;
@@ -103,7 +112,7 @@ void	parsing(char **av, t_stack *a)
 		error();
 	set_node(arr_nbr, a->len, a);
 	a->dup = arr_duplicate(arr_nbr, a->len);
+	free(arr_nbr);
 	free(str);
 	free_all(arr);
-	free(arr_nbr);
 }
