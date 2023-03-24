@@ -8,7 +8,7 @@ SRCS = \
 
 OBJS = $(SRCS:.c=.o)
 
-CFLAGS = -Wextra -Werror -Wall -g
+CFLAGS = -Wextra -Werror -Wall #-g -fsanitize=thread
 
 %.o :%.c
 	$(CC) $(CFLAGS) -c $< -o $@

@@ -6,7 +6,7 @@
 /*   By: naki <naki@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 02:29:30 by naki              #+#    #+#             */
-/*   Updated: 2023/03/20 01:59:54 by naki             ###   ########.fr       */
+/*   Updated: 2023/03/24 09:09:22 by naki             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	*ft_safe_malloc(size_t	size)
 		write(2, "malloc failed\n", 14);
 		exit (1);
 	}
+	// while (size-- > 0)
+	// 	((unsigned char*)ret)[size] = 0;
 	return (ret);
 }
 
@@ -60,16 +62,40 @@ int	now_time(void)
 	return (sec * 1000 + usec / 1000); //milisecond로 변환
 }
 
-void	destroy_all(t_info *info, t_philo *philo)
+void	philo_printf(t_info *info, t_philo *philo, t_type type)
 {
-	int	i;
-
-	i = 0;
-	while (i < info->philo_num)
+	pthread_mutex_lock(&(info->m_print)); //finish flag올린거 확인되면 바로 리턴
+	if (info->finish_flag == 1 || type == GOAL)
 	{
-		pthread_mutex_destroy(&(philo[i].fork));
-		i++;
+		if (type == GOAL)
+			printf("every philosopher has eaten %d times\n", info->must_eat);
+		info->finish_flag = 1;
+		pthread_mutex_unlock(&(info->m_print));
+		return ;
 	}
-	pthread_mutex_destroy(&(info->m_die));
-	pthread_mutex_destroy(&(info->m_print));
+	printf("%dms ", now_time() - info->start_time);
+	printf("philo %d ", philo->id + 1);
+	if (type == FORK)
+		printf("has taken a fork\n");
+	else if (type == EAT)
+		printf("is eating\n");
+	else if (type == SLEEP)
+		printf("is sleeping\n");
+	else if (type == THINK)
+		printf("is thinking\n");
+	else if (type == DIE)
+		printf("died\n");
+	if (type == DIE)
+		info->finish_flag = 1;
+	pthread_mutex_unlock(&(info->m_print));
 }
+
+void	psleep(int time) // 단위 맞추다가 int 범위 벗어나면 어케요 ?
+{
+	const int	target_time = now_time() + time; // 목표 시간 정해놓고
+
+	while (now_time() < target_time) // 될 때까지 유슬립
+		usleep(100);
+}
+//usleep : microseconds, time : miliseconds
+//microseconds * 10^3 == miliseconds

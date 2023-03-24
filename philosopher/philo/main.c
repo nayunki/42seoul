@@ -6,42 +6,52 @@
 /*   By: naki <naki@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 23:29:11 by naki              #+#    #+#             */
-/*   Updated: 2023/03/20 02:32:15 by naki             ###   ########.fr       */
+/*   Updated: 2023/03/24 06:48:10 by naki             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	monitoring(t_info *info, t_philo *philo)
+int	check_die(t_info *info, t_philo *philo)
 {
 	int	i;
 
-	while (1)
+	i = 0;
+	while (i < info->philo_num)
 	{
-		pthread_mutex_lock(&(info->m_die));
-		if (info->die_flag == 1)
+		pthread_mutex_lock(&(philo[i].m_last_eat));
+		if (now_time() - philo[i].last_eat > info->time_die)
 		{
-			philo_printf(info, philo, DIE);
+			philo_printf(info, &philo[i], DIE);
+			pthread_mutex_unlock(&(philo[i].m_last_eat));
 			return (1);
 		}
-		pthread_mutex_unlock(&(info->m_die));
-		if (info->must_eat != -1)
-		{
-			i = 0;
-			while (i < info->philo_num)
-			{
-				if (info->must_eat != philo->eat_count)
-					break ;
-				i++;
-			}
-			if (i == info->must_eat)
-			{
-				philo_printf(info, philo, GOAL);
-				pthread_mutex_unlock(&(philo->fork));
-				return (1);
-			}
-		}
+		pthread_mutex_unlock(&(philo[i].m_last_eat));
+		i++;
 	}
+	return (0);
+}
+
+int	check_full(t_info *info, t_philo *philo)
+{
+	int	i;
+
+	i = 0;
+	if (info->must_eat == -1)
+		return (0);
+	while (i < info->philo_num)
+	{
+		pthread_mutex_lock(&(philo[i].m_eat_count));
+		if (philo[i].eat_count < info->must_eat)
+		{
+			philo_printf(info, &philo[i], GOAL);
+			pthread_mutex_unlock(&(philo[i].m_eat_count));
+			return (0);
+		}
+		pthread_mutex_unlock(&(philo[i].m_eat_count));
+		i++;
+	}
+	return (1);
 }
 
 int	main(int ac, char **av)
@@ -63,10 +73,10 @@ int	main(int ac, char **av)
 		return (1);
 	while (1)
 	{
-		if (monitoring(info, philo_info))
+		if (check_die(info, philo_info) || check_full(info, philo_info))
 		{
 			destroy_all(info, philo_info);
-			return (0);
+			break ;
 		}
 	}
 	return (0);
