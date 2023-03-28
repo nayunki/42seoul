@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cctype>
 
 int main(int ac, char **av)
 {
@@ -7,17 +8,19 @@ int main(int ac, char **av)
     else
     {
         int i = 1;
-        while (av[i])
+        while (i < ac)
         {
             int j = 0;
             while (av[i][j])
             {
-                std::cout << (char)toupper(av[i][j]); //왜 되지 ..? 이게맛냐 ?
+                std::cout << (char)toupper(av[i][j]);
                 j++;
             }
+            std::cout << " ";
             i++;
         }
     }
     std::cout << std::endl;
-    return (0);
 }
+
+//함수 사용법, 쉬프트 연산자 사용 이유, 개행 없어도 되는지
