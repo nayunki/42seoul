@@ -2,19 +2,22 @@
 
 int main(void)
 {
-    PhoneBook book; // 인스턴스화
+    PhoneBook book;
     std::string option;
 
-    while (1)
+    book.set_idx();
+    while (!std::cin.eof())
     {
         std::cout << "Select your option : ADD, SEARCH, EXIT" << std::endl;
-        std::cin >> option;
-        if (option == "ADD")
-            book.add(); //왜 여긴 점 ? 그야 인스턴스니까요 ..
+        std::getline(std::cin, option);
+        if (std::cin.eof())
+            return (0);
+        if (option == "EXIT")
+            return (0);
+        else if (option == "ADD")
+            book.add();
         else if (option == "SEARCH")
             book.search();
-        else if (option == "EXIT")
-            return (0);
         else
             std::cout << "Please select the right option : ADD, SEARCH, EXIT" << std::endl;
     }
