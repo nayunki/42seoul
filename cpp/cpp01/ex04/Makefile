@@ -1,13 +1,10 @@
 CC = c++
 CFLAGS = -std=c++98 -Wall -Wextra -Werror
 
-NAME = Weapon
+NAME = Replace
 
 SRCS = \
 	main.cpp \
-	Weapon.cpp \
-	HumanA.cpp \
-	HumanB.cpp \
 
 OBJS = $(SRCS:.cpp=.o)
 
