@@ -14,7 +14,7 @@ class Fixed
         Fixed(const Fixed &a);
         Fixed& operator=(const Fixed &a);
         ~Fixed(void);
-        int getRawBits(void) const; // 함수 const -> 함수 내에서 어떤 값도 변경 x
+        int getRawBits(void) const;
         void setRawBits(int const raw);
 };
 

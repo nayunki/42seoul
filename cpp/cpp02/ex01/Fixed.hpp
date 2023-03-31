@@ -24,5 +24,5 @@ class Fixed
 };
 
 std::ostream& operator<<(std::ostream& out, const Fixed& obj);
-//인자로 넣은 ostream에 Fixed 객체를 넣어주는 역할을 하겠다.
+
 #endif
