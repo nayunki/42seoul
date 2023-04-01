@@ -8,7 +8,7 @@
 class   Contact
 {
     private :
-        int idx; //std library 안에 존재한다는 뜻
+        int idx;
         std::string f_name;
         std::string l_name;
         std::string n_name;

@@ -34,7 +34,7 @@ void    PhoneBook::search(void)
     std::cout << "Select the index to display" << std::endl;
     std::getline(std::cin, str);
     if (std::cin.eof())
-		return ;
+		exit(0);
     idx = str_to_int(str);
     if (0 <= idx && idx < i)
         this->contacts[idx].print_whole();

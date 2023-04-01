@@ -13,7 +13,7 @@ class ClapTrap
 		unsigned int	Attack_damage; //0으로 초기화 후 바꾸질 않는데 ?
 	public :
 		ClapTrap(void);
-		ClapTrap(std::string nm);
+		ClapTrap(const std::string& nm);
 		ClapTrap(const ClapTrap& a);
 		ClapTrap& operator=(const ClapTrap& a);
 		~ClapTrap(void);

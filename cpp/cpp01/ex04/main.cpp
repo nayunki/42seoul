@@ -10,8 +10,7 @@ int main(int ac, char **av)
     std::string beforename = av[1];
     std::string s1 = av[2];
     std::string s2 = av[3];
-    int f_len = beforename.length();
-    if (f_len == 0  || s1.length() == 0 || s2.length() == 0)
+    if (beforename.length() == 0  || s1.length() == 0 || s2.length() == 0)
         return (1);
     
     std::ifstream    infile;

@@ -10,7 +10,7 @@ int	main(void)
 	d.beRepaired(30);
 	d.attack("C");
 	c.takeDamage(d.GetAttackDmg());
-	c.beRepaired(100);
+    c.beRepaired(20);
 
     d.guardGate();
 

@@ -12,8 +12,8 @@ class Fixed
 
     public :
         Fixed(void);
-        Fixed(const int& a);
-        Fixed(const float& f);
+        Fixed(const int a);
+        Fixed(const float f);
         Fixed(const Fixed& a);
         Fixed& operator=(const Fixed& a);
         ~Fixed(void);

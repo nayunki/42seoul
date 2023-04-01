@@ -13,7 +13,7 @@ class ClapTrap
 		unsigned int	Attack_damage;
 	public :
 		ClapTrap(void);
-		ClapTrap(std::string nm);
+		ClapTrap(const std::string& nm);
 		ClapTrap(const ClapTrap& a);
 		ClapTrap& operator=(const ClapTrap& a);
 		virtual ~ClapTrap(void);

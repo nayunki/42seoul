@@ -20,10 +20,10 @@ Fixed::Fixed(const Fixed& a)
     *this = a;
 }
 
-Fixed& Fixed::operator=(const Fixed &a) // (=연산자) 초기화 후 대입. 자기 자신이 아닐때만 실행
+Fixed& Fixed::operator=(const Fixed &a)
 {
     if (this != &a)
-        this->value = a.value;
+        this->value = a.getRawBits();
     return (*this);
 }
 
@@ -49,7 +49,7 @@ std::ostream& operator<<(std::ostream& out, const Fixed& obj)
 float Fixed::toFloat(void) const
 {
     return ((float)this->value / (1 << this->fractional_bits));
-} //value 값은 같더라도, 자료형을 float으로 바꾸면 나눴을 때 나머지 살아있음 .! ! ! 
+}
 
 int Fixed::toInt(void) const
 {
@@ -106,13 +106,11 @@ Fixed	Fixed::operator*(const Fixed& ref) const
 
 Fixed	Fixed::operator/(const Fixed& ref) const
 {
-    // if (ref.toFloat() == 0)
-    //     return (NULL);
     Fixed   ret(this->toFloat() / ref.toFloat());
     return (ret);
 }
 
-Fixed	Fixed::operator++(void)
+Fixed&	Fixed::operator++(void)
 {
     ++this->value;
     return (*this);
@@ -126,7 +124,7 @@ const Fixed	Fixed::operator++(int)
     return (ret);
 }
 
-Fixed	Fixed::operator--(void)
+Fixed&	Fixed::operator--(void)
 {
     --this->value;
     return (*this);

@@ -9,7 +9,7 @@ ScavTrap::ScavTrap(void)
     this->Attack_damage = 20;
 }
 
-ScavTrap::ScavTrap(std::string nm)
+ScavTrap::ScavTrap(const std::string& nm)
 {
     std::cout << "ScavTrap " << nm << " constructor called" << std::endl;
     this->name = nm;
@@ -56,7 +56,7 @@ void ScavTrap::attack(const std::string& target)
 
 void ScavTrap::guardGate(void)
 {
-    if (this->Energy_points == 0 || this->Hit_points == 0)
+    if (this->Hit_points == 0)
     {
         std::cout << "ScavTrap " << this->name << " can't guard the Gate." << std::endl;
         return ;

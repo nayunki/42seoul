@@ -1,11 +1,11 @@
 CC = c++
 CFLAGS = -std=c++98 -Wall -Wextra -Werror
 
-NAME = Animal
+NAME = Abstract
 
 SRCS = \
 	main.cpp \
-	Animal.cpp \
+	AAnimal.cpp \
 	Cat.cpp \
 	Dog.cpp \
 	Brain.cpp \

@@ -6,13 +6,13 @@ Fixed::Fixed(void)
     this->value = 0;
 }
 
-Fixed::Fixed(const int& a)
+Fixed::Fixed(const int a)
 {
     std::cout << "Int constructor called" << std::endl;
     this->value = a << this->fractional_bits;
 }
 
-Fixed::Fixed(const float& f)
+Fixed::Fixed(const float f)
 {
     std::cout << "Float constructor called" << std::endl;
     this->value = roundf(f * (1 << this->fractional_bits));

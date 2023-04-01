@@ -20,7 +20,7 @@ void    Contact::add_one(void)
         if (std::cin.eof())
         {
             this->add_error();
-            return ;
+            exit (0);
         }
         if (!(this->f_name.empty()))
             break;
@@ -33,7 +33,7 @@ void    Contact::add_one(void)
         if (std::cin.eof())
         {
             this->add_error();
-            return ;
+            exit (0);
         }
         if (!(this->l_name.empty()))
             break;
@@ -46,7 +46,7 @@ void    Contact::add_one(void)
         if (std::cin.eof())
         {
             this->add_error();
-            return ;
+            exit (0);
         }
         if (!(this->n_name.empty()))
             break;
@@ -59,7 +59,7 @@ void    Contact::add_one(void)
         if (std::cin.eof())
         {
             this->add_error();
-            return ;
+            exit (0);
         }
         if (!(this->phone.empty()))
             break;
@@ -67,12 +67,12 @@ void    Contact::add_one(void)
     }
 	while (!std::cin.eof())
     {
-        std::cout << "Darkest : ";
+        std::cout << "Darkest secret : ";
         std::getline(std::cin, this->secret);
         if (std::cin.eof())
         {
             this->add_error();
-            return ;
+            exit (0);
         }
         if (!(this->secret.empty()))
             break;

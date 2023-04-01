@@ -13,7 +13,6 @@ int main(int ac, char **av)
             int j = 0;
             while (av[i][j])
             {
-                // std::cout << (char)toupper(av[i][j]);
                 av[i][j] = toupper(av[i][j]);
                 std::cout << av[i][j];
                 j++;
@@ -24,5 +23,3 @@ int main(int ac, char **av)
     }
     std::cout << std::endl;
 }
-
-//쉬프트 연산자 사용 이유

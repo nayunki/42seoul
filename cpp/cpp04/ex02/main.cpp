@@ -3,7 +3,7 @@
 
 int main()
 {
-    const Animal *meta[6];
+    const AAnimal *meta[6];
 
     for (int i = 0; i < 6; i++)
     {
@@ -37,6 +37,8 @@ int main()
 	std::cout << "Cat b1's first idea is "<< b1.getBrain()->getIdea(0) << std::endl;
  	std::cout << "Cat b2's first idea is "<< b2.getBrain()->getIdea(0) << std::endl;
 	std::cout << "Cat c's first idea is "<< c.getBrain()->getIdea(0) << std::endl;
+
+    // AAnimal x;
 
     return (0);
 }

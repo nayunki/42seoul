@@ -9,7 +9,7 @@ FragTrap::FragTrap(void)
     this->Attack_damage = 30;
 }
 
-FragTrap::FragTrap(std::string nm)
+FragTrap::FragTrap(const std::string& nm)
 {
     std::cout << "FragTrap " << nm << " constructor called" << std::endl;
     this->name = nm;
@@ -44,7 +44,7 @@ FragTrap::~FragTrap(void)
 
 void    FragTrap::highFivesGuys(void)
 {
-    if (this->Energy_points == 0 || this->Hit_points == 0)
+    if (this->Hit_points == 0)
     {
         std::cout << "FragTrap " << this->name << " can't highfive." << std::endl;
         return ;

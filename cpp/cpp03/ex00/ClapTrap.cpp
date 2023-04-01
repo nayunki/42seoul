@@ -9,7 +9,7 @@ ClapTrap::ClapTrap(void)
     this->Attack_damage = 0;
 }
 
-ClapTrap::ClapTrap(std::string nm)
+ClapTrap::ClapTrap(const std::string& nm)
 {
     std::cout << "ClapTrap " << nm << " constructor called" << std::endl;
     this->name = nm;

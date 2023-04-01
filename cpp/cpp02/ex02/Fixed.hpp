@@ -31,9 +31,9 @@ class Fixed
 		Fixed	operator-(const Fixed& ref) const;
 		Fixed	operator*(const Fixed& ref) const;
 		Fixed	operator/(const Fixed& ref) const;
-		Fixed	operator++(void);
+		Fixed&	operator++(void);
 		const Fixed	operator++(int);
-		Fixed	operator--(void);
+		Fixed&	operator--(void);
 		const Fixed	operator--(int);
 		static Fixed&	min(Fixed& a, Fixed& b);
 		static const Fixed&	min(const Fixed& a, const Fixed& b);
@@ -42,6 +42,5 @@ class Fixed
 };
 
 std::ostream& operator<<(std::ostream& out, const Fixed& obj);
-//인자로 넣은 ostream에 Fixed 객체를 넣어주는 역할을 하겠다.
 
 #endif
