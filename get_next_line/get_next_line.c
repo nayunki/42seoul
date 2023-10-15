@@ -6,7 +6,7 @@
 /*   By: naki <naki@student.42seoul.kr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 13:14:23 by naki              #+#    #+#             */
-/*   Updated: 2023/02/26 08:54:56 by naki             ###   ########.fr       */
+/*   Updated: 2022/10/10 22:06:07 by naki             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,11 @@ char	*make_line(int fd, char *buff, char *line)
 	int	i;
 	int	v;
 
-	v = 1;
 	while (ft_strchr(buff, '\n') == -1)
 	{
 		line = ft_strjoin(line, buff, BUFFER_SIZE);
 		v = read(fd, buff, BUFFER_SIZE);
-		buff[v] = '\0';
+		buff[v] = 0;
 		if (v <= 0)
 			break ;
 	}
