@@ -1,36 +1,33 @@
-
-name = inception
+NAME = Inception
+DOCKER_COMPOSE_PATH = ./srcs/docker-compose.yml
 
 all:
-	@printf "Launch configuration ${name}...\n"
-	@bash srcs/requirements/wordpress/tools/make_dir.sh
-	@docker compose -f ./srcs/docker-compose.yml --env-file ./srcs/.env up -d
+	mkdir -p /home/naki/data/db-data
+	mkdir -p /home/naki/data/wp-data
+	docker-compose -f ${DOCKER_COMPOSE_PATH} build
+# 도커파일로 이미지를 빌드
+	make up
+# 도커이미지로 컨테이너를 실행 (백그라운드에서 !)
 
 up:
-	@printf "Up all stoped container${name}...\n"
-	@docker compose -f ./srcs/docker-compose.yml --env-file ./srcs/.env up -d
+	docker-compose -f ${DOCKER_COMPOSE_PATH} up -d
 
 down:
-	@printf "Stopping configuration ${name}...\n"
-	@docker compose -f ./srcs/docker-compose.yml --env-file ./srcs/.env down
+	docker-compose -f ${DOCKER_COMPOSE_PATH} down
 
-re: fclean
-	@printf "Rebuild configuration ${name}...\n"
-	@docker compose -f ./srcs/docker-compose.yml --env-file ./srcs/.env up -d --build
+clean:
+	make down
+	docker system prune -a
+# 사용되지 않는 컨테이너, 네트워크, 이미지 등 구성요소를 제거
 
-clean: down
-	@printf "Cleaning configuration ${name}...\n"
-	@docker system prune -a
-	@sudo rm -rf ~/data/
+fclean:
+	docker-compose -f ${DOCKER_COMPOSE_PATH} down --volumes
+# 컨테이너와 함께 볼륨 제거
+	docker system prune -a
+	rm -rf /home/naki/data
 
+re:
+	make fclean
+	make all
 
-fclean: clean
-	@printf "Total clean of all configurations docker\n"
-	@docker compose -f ./srcs/docker-compose.yml --env-file ./srcs/.env down -v
-	@docker system prune --volumes
-	@docker network prune
-	@docker volume prune -a
-	@docker image prune -a
-	@docker system prune -a
-
-.PHONY	: all up down re clean fclean
+.PHONY	: all up down clean fclean re
